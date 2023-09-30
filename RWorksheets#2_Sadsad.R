@@ -18,16 +18,12 @@ worker_age <- list( 34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27,
           22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35,
           24, 33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26,
           18)
+worker_age
 #a
 worker_age[3] #Its value is 22 
 #b.
 worker_age1 <- worker_age[c(2,4)]
-worker_age1
-# [[1]]
-# [1] 28
-# 
-# [[2]]
-# [1] 36
+worker_age1 #Its value is 28 & 36
 #c
 worker_age2 <- worker_age[-c(4,12)]
 worker_age2 
@@ -217,6 +213,7 @@ data.frame
 
 #b 
 weighted.mean(price_per_liter,purchase_quantity) #The avg fuel expenditure of Mr. Cruz from Jan to June is 59.2625
+#[1] 59.2625
 
 #7
 #a
@@ -226,7 +223,7 @@ data #b [1]141.0000  83357.0000    591.1844    425.0000 243908.4086    493.8708 
 data <- c(length(rivers), sum(rivers), mean(rivers), median(rivers), var(rivers),
           sd(rivers), min(rivers), max(rivers))
 data
-#The results are 141.0000  83357.0000    591.1844    425.0000 243908.4086    493.8708    135.0000   3710.0000
+#[1]141.0000  83357.0000    591.1844    425.0000 243908.4086    493.8708    135.0000   3710.0000
 
 #8
 #a
@@ -238,20 +235,22 @@ pay <- c(67,90,225,110,90,332,302,41,52,88,55,44,55,40,233,34,40,47,75,25,39,45,
 
 PowerRanking <- data.frame(power_ranking, celebtrity_name, pay)
 PowerRanking
+ 
 #b
 power_ranking[19] <- 15
-power_ranking 
+power_ranking # [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 15 20 21 22 23 24 25
 pay[19] <- 90
-pay
+pay# [1]  67  90 225 110  90 332 302  41  52  88  55  44  55  40 233  34  40  47  90  25  39  45  32  40  31
 
+#c
 csv_file <- "PowerRanking.csv"
- #c
 
-write.csv(PowerRanking, file = csv_file, row.names = FALSE)
+
+write.csv(PowerRanking, file = csv_file)
 
 PowerRankingCSV <- read.csv("PowerRanking.csv")
 
-Power_Ranking <- rank_dataCSV[10:20,]
+Power_Ranking <- PowerRankingCSV[10:20,]
 Power_Ranking
 #d
 #                        power_ranking   celebtrity_name      pay
@@ -266,16 +265,16 @@ Power_Ranking
 #           18            18              Phil Mickelson      47
 #           19            19               J.K Rowling        75
 #           20            20                Bradd Pitt        25
-
-#e The  PowerRank result was change to 10 to 20 elements.
 save(Power_Ranking, file = "Ranks.RData")
 load("Ranks.RData")
- 
+
+#e The  PowerRank result was change to 10 to 20 elements.
+
 
 #9
 library(readxl)
 hotels_vienna <- read_excel("hotels-vienna.xlsx")
-View(hotels_vienna)
+View(hotel_vienna)
 hotels_vienna
 #b
 dim(hotels_vienna)  #[1] 428  24
@@ -293,6 +292,7 @@ save(hotels_vienna, file = "new.RData")
 new <-load("new.RData")
 View(new)
 
+#e
 head(hotels_vienna, 6) 
 # country city_actual rating_count center1label center2label neighbourhood price city   stars ratingta
 # <chr>   <chr>       <chr>        <chr>        <chr>        <chr>         <dbl> <chr>  <dbl> <chr>   
@@ -346,6 +346,41 @@ vegetables
 #b Add 2 additional vegetables after the last vegetables in the list. What is the R script and its output?
 addVegetables <- c(vegetables, "mushroom", "ginger")
 addVegetables 
+# [[1]]
+# [1] "cabbage"
+# 
+# [[2]]
+# [1] "carrot"
+# 
+# [[3]]
+# [1] "spinach"
+# 
+# [[4]]
+# [1] "potato"
+# 
+# [[5]]
+# [1] "garlic"
+# 
+# [[6]]
+# [1] "corn"
+# 
+# [[7]]
+# [1] "onion"
+# 
+# [[8]]
+# [1] "tomato"
+# 
+# [[9]]
+# [1] "eggplant"
+# 
+# [[10]]
+# [1] "cucumber"
+# 
+# [[11]]
+# [1] "mushroom"
+# 
+# [[12]]
+# [1] "ginger"
 
 #c Add 4 additional vegetables after index 5
 addVegetables4 <- append(addVegetables, c("lettuce", "zucchini", "radish", "bell pepper"), after = 5)
