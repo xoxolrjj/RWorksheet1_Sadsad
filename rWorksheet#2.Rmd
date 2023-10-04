@@ -2,7 +2,9 @@
 title: "RWorksheets#2"
 author: "Missy Key Sadsad"
 date: "2023-09-28"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
  
 <html>

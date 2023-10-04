@@ -1,0 +1,124 @@
+---
+title: "RWorksheet_SADSAD#2b"
+author: "Missy Key Sadsad"
+date: "2023-10-04"
+output:
+  pdf_document: default
+  html_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r name, echo = TRUE}
+#1. There is a built-in vector LETTERS contains the uppercase letters of the alphabet and letters which contains the lowercase letters of the alphabet.
+
+#a
+elevenLetters <- LETTERS[1:11]
+elevenLetters
+
+#b 
+oddNumLetters<- LETTERS [1:26 %% 2 == 1]
+oddNumLetters
+
+#c. 
+vowels <- LETTERS [c(1,5,9,15,21)] 
+vowels
+
+#d
+smolLetter <- letters
+smolLetter
+
+#e. 
+peepLetter <- letters[15:24]
+peepLetter
+
+
+#2.Create a vector(not a dataframe) with the average temperatures in April for Tugue-garao City, Manila, Iloilo City, Tacloban, Samal Island, and Davao City. The average temperatures in Celcius are 42, 39, 34, 34, 30, and 27 degrees.
+
+#a. 
+city <- c("Tugue-garao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+
+#b. 
+temp <- c(42, 39, 34, 34, 30, 27)
+temp #[1] 42 39 34 34 30 27
+
+#c. 
+cityTemp <- data.frame(city,temp)
+cityTemp #The cityTemp data frame has two columns: "city" and "temp". The "city" column contains the city names, and the "temp" column contains the corresponding temperature values.
+ 
+#d.
+colnames(cityTemp) <- c("City", "Temperature")
+col_names <- colnames(cityTemp) 
+col_names#The cityTemp has two column names which contains "city" and "temperature", and the result is that the two column names was change into "City" and "Temperature".
+
+#e. 
+str(cityTemp) #str(cityTemp) output tells that cityTemp is a data frame with two columns:"City" and "Temperature", and it provides information about the data types contained in each column.
+
+#f  
+row_3 <- cityTemp[3,]
+row_3
+#       City         Temperature
+# 3   Iloilo City          34
+row_4 <- cityTemp[4,]
+row_4
+#       City         Temperature
+# 4   Tacloban             34
+
+
+#g
+max(cityTemp$City)#[1] "Tugue-garao City"
+min(cityTemp$City)#[1] "Davao City"
+
+#2.Create a matrix of one to eight and eleven to fourteen with four columns and three rows.
+
+#a
+orgMatrix <- matrix(data = c(1:8, 11:14),nrow =3 , ncol = 4)
+orgMatrix
+#       [,1] [,2] [,3] [,4]
+# [1,]    1    4    7   12
+# [2,]    2    5    8   13
+# [3,]    3    6   11   14
+
+#b
+orgMatrix *2
+#      [,1] [,2] [,3] [,4]
+# [1,]    2    8   14   24
+# [2,]    4   10   16   26
+# [3,]    6   12   22   28
+
+#c
+row_2 <- orgMatrix[2,]
+row_2 #[1]  2  5  8 13
+
+#d
+select_val <-orgMatrix[c(1,2), c(3,4)] 
+select_val  
+#       [,1] [,2]
+# [1,]    7   12
+# [2,]    8   13
+
+#e 
+select_val2 <-orgMatrix[3, c(2,3)]
+select_val2 #[1]  6 11
+
+#f
+col<- orgMatrix[,4]
+col #[1] 12 13 14
+
+#g
+rownames(orgMatrix) <- c("isa", "dalawa", "tatlo")
+colnames(orgMatrix) <- c("uno", "dos", "tres", "quatro")
+orgMatrix
+
+dim(orgMatrix) <- c(6,2)
+orgMatrix
+#       [,1] [,2]
+# [1,]    1    7
+# [2,]    2    8
+# [3,]    3   11
+# [4,]    4   12
+# [5,]    5   13
+# [6,]    6   14
+  
+```

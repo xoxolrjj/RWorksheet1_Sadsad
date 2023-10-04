@@ -244,14 +244,12 @@ pay# [1]  67  90 225 110  90 332 302  41  52  88  55  44  55  40 233  34  40  47
 
 #c
 csv_file <- "PowerRanking.csv"
-
-
 write.csv(PowerRanking, file = csv_file)
 
 PowerRankingCSV <- read.csv("PowerRanking.csv")
 
-Power_Ranking <- PowerRankingCSV[10:20,]
-Power_Ranking
+Ranks.Data <- PowerRankingCSV[10:20,]
+Ranks.Data
 #d
 #                        power_ranking   celebtrity_name      pay
 #           10            10                 Dan Brown        88
@@ -265,7 +263,7 @@ Power_Ranking
 #           18            18              Phil Mickelson      47
 #           19            19               J.K Rowling        75
 #           20            20                Bradd Pitt        25
-save(Power_Ranking, file = "Ranks.RData")
+save(Ranks.Data, file = "Ranks.RData")
 load("Ranks.RData")
 
 #e The  PowerRank result was change to 10 to 20 elements.
@@ -275,16 +273,15 @@ load("Ranks.RData")
 library(readxl)
 hotels_vienna <- read_excel("hotels-vienna.xlsx")
 View(hotel_vienna)
-hotels_vienna
 #b
 dim(hotels_vienna)  #[1] 428  24
 
 #c
 col <- colnames(hotels_vienna)
 col
-colnames1 <- col[c(1,6,7,8,22,24)]
+colnames1 <- col[c(1,6,7,9,22,24)]
 colnames1 
-#[1] "country"            "neighbourhood"      "price"              "city"            "accommodation_type"
+#[1] "country"            "neighbourhood"      "price"              "star"            "accommodation_type"
 #[6] "rating"
 
 #d
