@@ -27,8 +27,8 @@ vowels <- LETTERS [c(1,5,9,15,21)]
 vowels
 
 #d
-smolLetter <- letters
-smolLetter
+smolLetters <- tail(letters,5)
+smolLetters
 
 #e. 
 peepLetter <- letters[15:24]
