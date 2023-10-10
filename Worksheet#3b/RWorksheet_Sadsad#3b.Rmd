@@ -1,0 +1,180 @@
+---
+title: "RWorksheet_Sadsad#3b.Rmd"
+author: "Missy Key Sadsad"
+date: "2023-10-10"
+output:
+  pdf_document: default
+  html_document: default
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = '', fig.width = 6, fig.height = 6
+)
+```
+
+```{r}
+library(dplyr)
+```
+
+#1. Create a data frame using the table below.
+```{r}
+#a.
+Respondents <-  c(seq(1,20))
+Sex <- c(2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,2)
+Father_Occupation <- c(1,3,3,3,1,2,3,1,1,1,3,2,1,3,3,1,3,1,2,1)
+PersonsAtHome <- c(5,7,3,8,5,9,6,7,8,4,7,5,4,7,8,8,3,11,7,6)
+SiblingsAtSchool <- c(6,4,4,1,2,1,5,3,1,2,3,2,5,5,2,1,2,5,3,2)
+TypeOfHouses <- c (1,2,3,1,1,3,3,1,2,3,2,3,2,2,3,3,3,3,3,2)
+  
+data_display <- data.frame(Respondents, Sex,Father_Occupation,PersonsAtHome,SiblingsAtSchool,TypeOfHouses)
+data_display
+```
+
+```{r}
+#b
+#in this dataset includes information from 20 respondents. It covers their gender, with 7 males and 13 females. Additionally, it records their fathers' occupations (coded as 1, 2, or 3), household sizes (ranging from 3 to 11 people), school-going siblings (ranging from 1 to 6), and the type of houses they live in (coded as 1, 2, or 3). Further analysis can reveal insights into these aspects.
+summary(data_display)
+```
+```{r}
+#c. No
+```
+
+```{r}
+#d. 
+data1 <- subset (data_display)[1:2, 2:6, drop=FALSE]
+data1
+```
+```{r}
+#e. 
+data2 <- data_display[c(3,5), c(2,4)]
+data2
+```
+```{r}
+#f. 
+types_houses <- data_display[c(6)]
+types_houses
+```
+```{r}
+#g
+selected_data <- data_display %>% select(1,2,3)
+data3 <- selected_data[data_display$Sex == 1,]
+data3
+```
+```{r }
+#h
+selected_data2 <- data_display %>% select(1,2,5)
+female <- selected_data2[data_display$SiblingsAtSchool >= 5, ]
+female
+```
+```{r}
+colnames(data_display) <- c("Respondents", "Sex", "Fathers Occupation", "Persons At Home", "Siblings At School", "Type Of Houses")
+```
+
+#2. Write a R program to create an empty data frame. Using the following codes:
+```{r}
+df = data.frame(Ints=integer(),
+
+Doubles=double(), Characters=character(),
+Logicals=logical(),
+Factors=factor(),
+stringsAsFactors=FALSE)
+
+print("Structure of the empty dataframe:")
+print(str(df))
+
+#a.The output indicates that df is a dataframe with 0 observations (rows) and 5 variables (columns). It provides Ints, Doubles, Characters, Logicals, and Factors. The column data types and the number of levels in the factor column are also displayed.
+
+```
+
+3. Create a .csv file of this. Save it as HouseholdData.csv
+
+```{r}
+#a
+new_Respondents <-  c(seq(1,10))
+new_Sex <- c("Male","Female","Female","Male","Male","Female","Female","Male","Female","Male")
+new_Fathers_Occupation <- c(1,2,3,3,1,2,2,3,1,3)
+new_PersonsAtHome <- c(5,7,3,8,6,4,4,2,11,6)
+new_SiblingsAtSchool <- c(2,3,0,5,2,3,1,2,6,2)
+new_TypeOfHouses <- c ("Wood","Congrete","Congrete","Wood","Semi-Congrete","Semi-Congrete","Wood","Semi-Congrete","Semi-Congrete","Congrete")
+  
+HouseholdData <- data.frame(new_Respondents, new_Sex,new_Fathers_Occupation,new_PersonsAtHome,new_SiblingsAtSchool,new_TypeOfHouses)
+
+ 
+csv_file <- "HouseholdData.csv"
+write.csv(HouseholdData, file = csv_file)
+HouseholdData <- read.csv("HouseholdData.csv")
+ 
+```
+
+```{r}
+#b
+data_display1 <- factor(HouseholdData$new_Sex, labels = c("Male", "Female"))
+data_display1 <- as.integer(data_display1)
+data_display1   
+```
+
+```{r}
+#c
+data_display2 <- factor(HouseholdData$new_TypeOfHouses, labels = c("Wood" = 1, "Congrete" = 2,"Semi-Congrete" = 3))
+data_display2 <- as.integer(data_display2)
+data_display2   
+```
+
+```{r}
+#d
+data_display3 <- factor(HouseholdData$new_Fathers_Occupation, labels = c("Farmer" = 1, "Driver" = 2,"Others" = 3))
+data_display3 <- as.integer(data_display3)
+data_display3
+```
+```{r}
+#e
+selected_data3 <- HouseholdData %>% select(2, 3,4)
+data4 <- selected_data3[HouseholdData$new_Fathers_Occupation == 2, ]
+data4
+```
+```{r}
+#f
+selected_data3 <- HouseholdData %>% select(2,6)
+data4 <- selected_data3[HouseholdData$new_SiblingsAtSchool >= 5,]
+data4
+```
+
+
+
+```{r}
+colnames(HouseholdData) <- c("Respondents", "Sex", "Fathers Occupation", "Persons At Home", "Siblings At School", "Type Of Houses")
+```
+
+
+
+
+
+
+
+4. Interpret the Graph.
+ 
+  In the bar graph titled "Sentiment of Tweets per Day," it have three distinct sentiment categories: Negative, Neutral, and Positive. Each category represents the prevailing mood and tone of the tweets on specific dates in July 2020. 
+
+ Negative Sentiment: This represents tweets expressing dissatisfaction, criticism, or negative emotions. On specific dates like July 15 and July 21, 2020, negative tweets surged, indicating intense discussions or concerns.
+
+Neutral Sentiment: These tweets strike a balanced tone, presenting information objectively. Across various days in July 2020, including July 14, 15, 17, 18, and 21, neutral sentiments prevailed, reflecting varying levels of non-partisan discourse.
+
+Positive Sentiment: This category showcases optimistic, enthusiastic, and positive tweets. Despite negative sentiments on certain days, like July 14, 15, 17, 18, and 21, positive tweets also shone, symbolizing resilience, hope, or a positive outlook amid diverse sentiments.
+
+In summary, this graph succinctly captures Twitter's sentiment landscape in July 2020, highlighting fluctuations in Negative, Neutral, and Positive sentiments on specific dates.
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
