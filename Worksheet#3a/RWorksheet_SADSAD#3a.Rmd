@@ -1,0 +1,132 @@
+---
+title: "RWorksheet_SADSAD#2b"
+author: "Missy Key Sadsad"
+date: "2023-10-04"
+output:
+  pdf_document: default
+  html_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r name, echo = TRUE}
+#Using Vectors
+
+#1.  
+
+#a
+elevenLetters <- LETTERS[1:11]
+elevenLetters
+
+#b 
+oddNumLetters<- LETTERS [1:26 %% 2 == 1]
+oddNumLetters
+
+#c. 
+vowels <- LETTERS [c(1,5,9,15,21)] 
+vowels
+
+#d
+smolLetter <- letters
+smolLetter
+
+#e. 
+peepLetter <- letters[15:24]
+peepLetter
+
+#2. 
+
+#a. 
+city <- c("Tugue-garao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+
+#b. 
+temp <- c(42, 39, 34, 34, 30, 27)
+temp 
+
+#c. 
+cityTemp <- data.frame(city,temp)
+cityTemp #The cityTemp data frame has two columns: "city" and "temp". The "city" column contains the city names,                      #and the "temp" column contains the corresponding temperature values.
+ 
+#d.
+colnames(cityTemp) <- c("City", "Temperature")
+col_names <- colnames(cityTemp) 
+col_names#The cityTemp has two column names which contains "city" and "temperature", and                                              #the result is that the two column names was change into "City" and "Temperature".
+
+#e. 
+str(cityTemp) #str(cityTemp) output tells that cityTemp is a data frame with two columns:"City" and "Temperature",                    #and it provides information about the data types contained in each column.
+
+#f  
+row_3 <- cityTemp[3,]
+row_3   
+
+row_4 <- cityTemp[4,]
+row_4  
+
+#g
+max(cityTemp$City) 
+  
+min(cityTemp$City) 
+
+#Using Matrices
+
+#2.Create a matrix of one to eight and eleven to fourteen with four columns and three rows.
+
+#a
+orgMatrix <- matrix(data = c(1:8, 11:14),nrow =3 , ncol = 4)
+orgMatrix
+ 
+#b
+orgMatrix_new <- orgMatrix *2
+orgMatrix_new
+
+#c
+row_2 <- orgMatrix_new[2,]
+row_2  
+
+#d
+select_val <-orgMatrix_new[c(1,2), c(3,4)] 
+select_val  
+
+#e 
+select_val2 <-orgMatrix_new[3, c(2,3)]
+select_val2  
+
+#f
+col<- orgMatrix_new[,4]
+col 
+
+#g
+rownames(orgMatrix_new) <- c("isa", "dalawa", "tatlo")
+colnames(orgMatrix_new) <- c("uno", "dos", "tres", "quatro")
+orgMatrix_new
+
+dim(orgMatrix_new) <- c(6,2)
+orgMatrix_new
+ 
+#Using Arrays
+
+#3
+
+#a.
+numeric_values <- c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1)
+
+
+array_data<- array(numeric_values, dim = c(4,2,6))
+array_data
+
+#b Three dimensions (4,2,6)
+dim(array_data)
+
+#c
+row_nams <-  letters [1:4]
+col_nams <- LETTERS [1:2]
+third_dim_names <- c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array",
+                     "1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array")
+
+dimnames(array_data) <- list(row_nams, col_nams, third_dim_names)
+
+array_data
+  
+```
+  
