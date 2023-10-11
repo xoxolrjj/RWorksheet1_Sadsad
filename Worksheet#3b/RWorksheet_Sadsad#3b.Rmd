@@ -102,16 +102,15 @@ new_TypeOfHouses <- c ("Wood","Congrete","Congrete","Wood","Semi-Congrete","Semi
   
 HouseholdData <- data.frame(new_Respondents, new_Sex,new_Fathers_Occupation,new_PersonsAtHome,new_SiblingsAtSchool,new_TypeOfHouses)
 
- 
+library(readr)
 csv_file <- "HouseholdData.csv"
 write.csv(HouseholdData, file = csv_file)
 HouseholdData <- read.csv("HouseholdData.csv")
- 
 ```
 
 ```{r}
 #b
-data_display1 <- factor(HouseholdData$new_Sex, labels = c("Male", "Female"))
+data_display1 <- factor(HouseholdData$new_Sex, labels = c("Male" = 1, "Female" = 2))
 data_display1 <- as.integer(data_display1)
 data_display1   
 ```
