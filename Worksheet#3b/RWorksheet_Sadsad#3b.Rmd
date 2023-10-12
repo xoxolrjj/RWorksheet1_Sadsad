@@ -3,8 +3,8 @@ title: "RWorksheet_Sadsad#3b.Rmd"
 author: "Missy Key Sadsad"
 date: "2023-10-10"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 editor_options: 
   chunk_output_type: inline
 ---
