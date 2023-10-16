@@ -110,31 +110,24 @@ HouseholdData <- read.csv("HouseholdData.csv")
 
 ```{r}
 #b
-data_display1 <- factor(HouseholdData$new_Sex, levels = c("Male" = 1, "Female" = 2))
-sex_mapping <- c("Male" = 1, "Female" = 2)
-data_display1<-as.integer(sex_mapping[HouseholdData$new_Sex])
-unique(data_display1)
-unique(HouseholdData$new_Sex)
-
+HouseholdData$new_Sex <- factor(HouseholdData$new_Sex, levels = c("Male", "Female"), label = c(1,2))
+HouseholdData
+ 
 ```
 
 ```{r}
 #c
-data_display2 <- factor(HouseholdData$new_TypeOfHouses, levels = c("Wood" = 1, "Congrete" = 2,"Semi-Congrete" = 3)) 
-sex_mapping2 <- c("Wood" = 1, "Congrete" = 2,"Semi-Congrete" = 3)
-data_display2 <- as.integer(sex_mapping2[HouseholdData$new_TypeOfHouses])
-unique(data_display2)
-unique(HouseholdData$new_TypeOfHouses)
+HouseholdData$new_TypeOfHouses  <- factor(HouseholdData$new_TypeOfHouses, levels = c("Wood", "Congrete", "Semi-Congrete"), labels = c(1,2,3))
+HouseholdData
 ```
 
 ```{r}
 #d
-data_display3 <- factor(HouseholdData$new_Fathers_Occupation, labels = c("Farmer" = 1, "Driver" = 2,"Others" = 3))
-sex_mapping3 <- c("Farmer" = 1, "Driver" = 2,"Others" = 3)
-data_display3 <- as.integer(sex_mapping3[HouseholdData$new_Fathers_Occupation])
-unique(data_display3)
-unique(HouseholdData$new_Fathers_Occupation)
+HouseholdData$new_Fathers_Occupation <- factor(HouseholdData$new_Fathers_Occupation, levels= c("Farmer" = 1, "Driver" = 2,"Others" = 3))
+HouseholdData 
 ```
+
+
 ```{r}
 #e
 selected_data3 <- HouseholdData %>% select(2, 3,4)
@@ -147,7 +140,6 @@ selected_data3 <- HouseholdData %>% select(2,6)
 data4 <- selected_data3[HouseholdData$new_SiblingsAtSchool >= 5,]
 data4
 ```
-
 
 
 ```{r}
