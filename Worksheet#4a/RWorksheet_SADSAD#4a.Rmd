@@ -1,0 +1,196 @@
+---
+title: "Worksheet#4a"
+author: "Missy Key Sadsad"
+date: "2023-10-25"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+ 
+```
+
+1. The table below shows the data about shoe size and height. Create a data frame.
+
+```{r}
+shoeSize <- c(6.5, 9.0, 8.5,8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5,13.0,11.5,8.5,5.0,10.0,6.5,7.5,8.5,10.5,8.5,10.5,11.0,9.0,13.0)
+Height <- c(66.0, 68.0, 64.5, 65.0, 70.0,64.0,70.0 ,71.0,72.0, 64.0, 74.5, 67.0, 71.0, 71.0,77.0,72.0,59.0,62.0,72.0,66.0,64.0,67.0,73.0,69.0,72.0,70.0,69.0,70.0)
+Gender <- c("F","F","F","F","M","F","F","F","M","F","M","F","M","M","M","M","F","F","M","F","F","M","M","F","M","M","M","M")
+ 
+HouseholdData <- data.frame(shoeSize,Height,Gender)
+HouseholdData
+#a Describe the data.
+#The df_output data frame contains data for two groups of individuals. Group 1 includes information on shoe sizes, heights, and genders for 14 individuals. Group 2 has similar data for another 14 individuals. Gender is represented as "F" for females and "M" for males in both groups.
+```
+
+
+
+```{r}
+#b. Create a subset by males and females with their corresponding shoe size and height. What its result?
+males_subset <- HouseholdData[HouseholdData$Gender == "M", c("shoeSize", "Height")]
+females_subset <- HouseholdData[HouseholdData$Gender == "F", c("shoeSize", "Height")]
+
+```
+
+
+```{r}
+#c. Find the mean of shoe size and height of the respondents. Write the R scripts and itsresult.
+mean(HouseholdData$shoeSize)
+mean(HouseholdData$Height)
+```
+
+```{r}
+#d. Is there a relationship between shoe size and height? Why?
+#The correlation between shoe size and height can be calculated to understand their relationship. A positive correlation suggests that as shoe size increases, height tends to increase. A negative correlation suggests the opposite. A correlation close to 0 means there is little to no linear relationship between the two variables. You can also visualize this relationship with a scatter plot to see the trend in the data.
+
+```
+2. Construct character vector months to a factor with factor() and assign the result to
+factor_months_vector. Print out factor_months_vector and assert that R prints out
+the factor levels below the actual values.
+
+```{r}
+vectorM <- c("March","April","January","November","January",
+"September","October","September","November","August",
+"January","November","November","February","May","August",
+"July","December","August","August","September","November","February",
+"April")
+factor_month <- factor(vectorM)
+factor_month
+```
+3. Then check the summary() of the months_vector and factor_months_vector. | Inter-pret the results of both vectors. Are they both equally useful in this case?
+```{r}
+summary(vectorM)
+summary(factor_month)
+#The summary(vectorM) provides counts of each month as text, useful for raw frequency information. The summary(factor_month) treats months as categorical levels, making it useful for structured analysis and categorization. Choose the one that fits your analytical needs – raw counts or categorical representation
+```
+4. Create a vector and factor for the table below.
+
+```{r}
+vector_direction <- c("East","West","North")
+vector_frequency <- c(1,4,3)
+
+new_data <- factor(vector_direction,levels = c("East","West","North"))
+print(new_data)
+
+new_data1 <- factor(vector_frequency,levels = c(1,4,3))
+print(new_data1)
+
+```
+
+5. Enter the data below in Excel with file name = import_march.csv
+```{r}
+march_data <-read.table("import_march.csv",header = TRUE, sep = ",", as.is = TRUE)
+View(march_data)
+```
+
+6. Create an R Program that allows the User to randomly select numbers from 1 to 50.
+Then display the chosen number. If the number is beyond the range of the selected choice,
+it will have to display a string “The number selected is beyond the range of 1 to 50”. If
+number 20 is inputted by the User, it will have to display “TRUE”, otherwise display the
+input number.
+
+```{r}
+#a
+num <- readline(prompt = "Input randomly seclect numbers from 1 to 50: ")
+if(num > 50){
+  print('The number selected is beyond the range of 1 to 50')
+}else if(num <= 20){
+    print('TRUE')
+}
+```
+7. Write a function that prints the minimum number of bills that must be paid, given the
+price of the snack.
+Input: Price of snack (a random number divisible by 50) Output: Minimum number of bills
+needed to purchase a snack.
+
+```{r}
+#a
+calculate_minimum_bills <- function() {
+  price <- as.integer(readline(prompt = "Price of snack (a random number divisible by 50): "))
+
+  if (is.na(price) || price %% 50 != 0) {
+    cat("Invalid input. Please enter a valid price divisible by 50.\n")
+    return()
+  }
+
+  num_bills <- 0
+  bill_denominations <- c(1000, 500, 200, 100, 50)
+
+  for (bill in bill_denominations) {
+    num_bills <- num_bills + (price %/% bill)
+    price <- price %% bill
+  }
+
+  cat("Minimum number of bills needed:", num_bills, "\n")
+}
+
+calculate_minimum_bills()
+```
+
+8. The following is each student’s math score for one semester. Based on this, answer the
+following questions.
+
+```{r}
+#a
+  rname <- c("Annie", "Thea", "Steve", "Hanna")
+  grade1 <- c(85,65,75,95)
+  grade2 <- c(65,75,55,75)
+  grade3 <- c(85,90,80,100)
+  grade4 <- c(95,75,100,90)
+  cardDF <- data.frame(rname,grade1,grade2,grade3,grade4)
+  cardDF
+```
+
+b. Without using the rowMean function, output the average score of students whose average
+math score over 90 points during the semester. write R code and its output.
+Example Output: Annie’s average grade this semester is 88.75.
+
+```{r}
+#b
+for (i in 1:length(rname)) {
+  average_score <- (grade1[i] + grade2[i] + grade3[i] + grade4[i]) / 4
+  cat(paste(rname[i], "'s average grade this semester is", round(average_score, 2),".\n"))
+}
+
+```
+c. Without using the mean function, output as follows for the tests in which the average
+score was less than 80 out of 4 tests.
+Example output: The nth test was difficult.
+```{r}
+#c
+for (test_num in 1:4) {
+  total_score <- grade1 + grade2 + grade3 + grade4
+  average_score <- total_score / 4
+
+  if (average_score[test_num] < 80) {
+    cat("The", test_num, "test was difficult.\n")
+  }
+}
+
+```
+Without using the max function, output as follows for students whose highest score for
+a semester exceeds 90 points.
+Example Output: Annie’s highest grade this semester is 95.
+
+```{r}
+#d
+for (i in 1:length(rname)) {
+  highest_grade <- grade1[i]
+  
+  if (grade2[i] > highest_grade) {
+    highest_grade <- grade2[i]
+  }
+  if (grade3[i] > highest_grade) {
+    highest_grade <- grade3[i]
+  }
+  if (grade4[i] > highest_grade) {
+    highest_grade <- grade4[i]
+  }
+
+  if (highest_grade > 90) {
+    cat(paste(rname[i], "'s highest grade this semester is", highest_grade, ".\n"))
+  }
+}
+```
