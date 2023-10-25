@@ -94,12 +94,15 @@ input number.
 ```{r}
 #a
 num <- readline(prompt = "Input randomly seclect numbers from 1 to 50: ")
-if(num > 50){
+if(num >= 1 && num <= 50){
   print('The number selected is beyond the range of 1 to 50')
-}else if(num <= 20){
+}else if(num == 20){
     print('TRUE')
+}else{
+  cat(num)
 }
 ```
+
 7. Write a function that prints the minimum number of bills that must be paid, given the
 price of the snack.
 Input: Price of snack (a random number divisible by 50) Output: Minimum number of bills
@@ -151,7 +154,7 @@ Example Output: Annie’s average grade this semester is 88.75.
 #b
 for (i in 1:length(rname)) {
   average_score <- (grade1[i] + grade2[i] + grade3[i] + grade4[i]) / 4
-  cat(paste(rname[i], "'s average grade this semester is", round(average_score, 2),".\n"))
+  cat(paste(rname[i], "'s average grade this semester is",average_score,".\n"))
 }
 
 ```
