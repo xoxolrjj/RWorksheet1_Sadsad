@@ -7,12 +7,8 @@ output:
   html_document: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-library(ggplot2)
-
+ 
+ 
 
 #Using Loop Function
 
@@ -80,7 +76,8 @@ a. What is the R script for importing an excel or a csv file? Display the first 
 the dataset? Show your codes and its result.
 
 ```{r}
-HouseholdData <-read.table("HouseholdData.csv",header = TRUE, sep = ",", as.is = TRUE)
+
+HouseholdData <-read.table("Household.csv",header = TRUE, sep = ",", as.is = TRUE)
 View(HouseholdData)
 
 head(HouseholdData,6)
@@ -106,17 +103,17 @@ chart type = barplot. Make sure to place title, legends, and colors. Write the R
 its result.
 
 ```{r}
-count <- c(male_count, female_count)
-gender <- c("Male", "Female")
-
-barplot(count, 
-        names.arg = gender,
+total <- c(male_count, female_count)
+ 
+barplot(total, 
+        names.arg = c("Male", "Female"),
         main = "The number of Males and Females in Household Data",
         xlab = "Gender",
-        ylab = "Count",
+        ylab = "Total",
+        ylim = c(0, max(total)+ 5), 
         col = c("blue", "pink"))
 legend("topright",
-       legend = gender,
+       legend = c("Male", "Female"),
        fill = c("blue", "pink"))
 ```
 5. The monthly income of Dela Cruz family was spent on the following:
@@ -125,12 +122,19 @@ a. Create a piechart that will include labels in percentage.Add some colors and 
 the chart. Write the R scripts and show its output.
 ```{r}
 monthly_income <- c(60,10,5,25)
+ 
+month_labels <- round(monthly_income/sum(monthly_income)*100,1)
+month_labels <- paste(month_labels,"%", sep ="")
 
-pie(monthly_income,
-    main = "Monthly Income of Dela Cruz family",
-    col = rainbow(length(monthly_income)),
-    labels = c("Food", "Electricity", "Savings", "Miscellaneous")
-    )
+pie(monthly_income , 
+    main = "The monthly income of Dela Cruz family", 
+    col = rainbow(length(monthly_income)), 
+    labels = month_labels, 
+    cex = 0.8)
+legend(1.5,0.5,
+       c("Food", "Electricity", "Savings", "Miscellaneous"), 
+       cex = 0.7, 
+       fill =rainbow(length(monthly_income)))
 
 ```
 6. Use the iris dataset.
@@ -144,6 +148,153 @@ str(iris)
 
 #the str(iris) output gives us a clear overview of the structure of the Iris dataset, including the number of observations, variables, and their respective data types.
 ```
+
+b. Create an R object that will contain the mean of the sepal.length,
+sepal.width,petal.length,and petal.width. What is the R script and its result?
+
+```{r}
+mean<- colMeans(iris[, c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")])
+mean
+```
+  
+c. Create a pie chart for the Species distribution. Add title, legends, and colors. Write
+the R script and its result.
+
+```{r}
+ 
+  
+pie(table(iris$Species), 
+    main = "Species distribution", 
+    labels = levels(iris$Species),
+    col = c("lightblue","lightgreen","red"))
+
+legend("topright", 
+       legend = levels(iris$Species),
+       fill =  c("lightblue","lightgreen","red") ,
+       title = "Species")
+
+
+ 
+```
+
+d. Subset the species into setosa, versicolor, and virginica. Write the R scripts
+and show the last six (6) rows of each species.
+
+```{r}
+setosa_lastsix<- tail(subset(iris, Species == "setosa"), n = 6)
+versicolor_lastsix <- tail(subset(iris, Species == "versicolor"), n = 6)
+virginica_lastsix<- tail(subset(iris, Species == "virginica"), n = 6)
+setosa_lastsix
+versicolor_lastsix 
+virginica_lastsix
+```
+e. Create a scatterplot of the sepal.length and sepal.width using the different
+species(setosa,versicolor,virginica). Add a title = “Iris Dataset”, subtitle = “Sepal
+width and length, labels for the x and y axis, the pch symbol and colors should be based on
+the species.
+```{r}
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     pch = as.integer(iris$Species),
+     col = as.integer(iris$Species) + 1,
+     main = "Iris Dataset",
+     sub = "Sepal width and length",
+     xlab = "Sepal Length",
+     ylab = "Sepal Width",
+     cex = 1.5,
+     lwd = 1.5)  
+```
+
+```{r}
+as.factor(iris$Species)
+#as.factor(iris$Species) is a way of telling R that the "Species" variable should be treated as a categorical factor, providing a clearer representation of the nature of the data.
+```
+##Basic Cleaning and Transformation of Objects
+
+7. Import the alexa-file.xlsx. Check on the variations. Notice that there are extra whitespaces among black variants (Black Dot, Black Plus, Black Show, Black
+Spot). Also on the white variants (White Dot, White Plus, White Show, White
+Spot).
+
+a. Rename the white and black variants by using gsub() function.
+
+```{r}
+
+library(readxl)
+alexa_file <- read_excel("~/GitHub/RWorksheets_Sadsad/Worksheet#4/RWorksheet#4b/alexa_file.xlsx")
+View(alexa_file)
+
+ 
+alexa_file$variation <- gsub("Black  Plus", "Black Plus", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Show", "Black Show", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Spot", "Black Spot", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Dot", "Black Dot", alexa_file$variation)
+
+alexa_file$variation <- gsub("White  Dot", "White Dot", alexa_file$variation)
+alexa_file$variation <- gsub("White  Plus", "White Plus", alexa_file$variation)
+alexa_file$variation <- gsub("White  Show", "White Show", alexa_file$variation)
+alexa_file$variation <- gsub("White  Spot", "White Spot", alexa_file$variation)
+
+knitr::include_graphics("C:/Users/missy/OneDrive/Documents/GitHub/RWorksheets_Sadsad/Worksheet#4/RWorksheet#4b/screenshot.png") 
+
+```
+  
+b. Get the total number of each variations and save it into another object. Save the
+object as variations.RData. Write the R scripts. What is its result?
+
+```{r}
+library(dplyr)
+
+variations.RData <- alexa_file%>%count(alexa_file$variation)
+variations.RData
+
+save(variations.RData, file = "variations.RData")
+```
+c. From the variations.RData, create a barplot(). Complete the details of the chart
+which include the title, color, labels of each bar.
+```{r}
+barplot(
+  height = variations.RData$n,
+  names.arg = variations.RData$`alexa_file$variation`,
+  col = "skyblue",   
+  main = "Alexa Varations",
+  las = 2,   
+  cex.names = 0.58
+)
+```
+
+d. Create a barplot() for the black and white variations. Plot it in 1 frame, side by
+side. Complete the details of the chart.
+
+```{r}
+
+par(mfrow = c(1, 2))
+ 
+black_variants <- variations.RData[1:5,]
+white_variants <- variations.RData[12:16,]
+
+barplot( 
+  height = black_variants$n,
+  names.arg = black_variants$`alexa_file$variation`,
+  main = "Black Variants",
+  col = rainbow(5),  
+  xlab = 'Total Numbers',
+  ylab = 'Frequency',
+   cex.names = 0.35,
+ )
+
+barplot( 
+  height = white_variants$n,
+  names.arg = white_variants$`alexa_file$variation`,
+   main = "White Variants",
+  col = rainbow(5),   
+  xlab = 'Total Numbers',
+  ylab = 'Frequency',
+   cex.names = 0.35,
+)
+
+```
+
+
+
 
 
 
