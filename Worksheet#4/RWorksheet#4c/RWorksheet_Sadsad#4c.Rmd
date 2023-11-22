@@ -1,0 +1,88 @@
+---
+title: "Worksheet-4c in R"
+author: "Missy Key Sadsad BSIT-2B"
+date: "2023-11-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1. Use the dataset mpg
+a. Show your solutions on how to import a csv file into the environment.
+
+```{r}
+
+#a
+mpg <-read.csv(file = "mpg.csv",header = TRUE, sep = "," )
+View(mpg)
+
+#b
+str(mpg)
+
+#c
+#based on given its class, fl,drv,model,manufacturer
+```
+
+
+
+2. Which manufacturer has the most models in this data set? Which model has the most variations?
+Show your answer.
+
+
+```{r}
+
+#a
+manufacturers <- table(mpg$manufacturer)
+manufacturers #dodge
+
+library(dplyr)
+
+#b
+models <- mpg%>%count(mpg$model)
+models #caravan 2wd
+
+unique_models <- mpg %>%group_by(manufacturer)%>%distinct(model)
+unique_models
+
+
+library(ggplot2)
+
+qplot(manufacturer, data = mpg,
+    geom = "bar", fill = manufacturer)
+ 
+
+```
+
+
+2. Same dataset will be used. You are going to show the relationship of the modeland the manufacturer.
+
+
+```{r}
+#a
+ggplot(mpg, aes(model, manufacturer)) + geom_point()
+
+#b based on the graph, it created a simple scatterplot where each point represent the manufacturer and its model.
+
+```
+
+3. Plot the model and the year using ggplot(). Use only the top 20 observations. Write the codes and
+its results.
+
+```{r}
+
+top_20_observations <- head(mpg, 20)
+ 
+
+ggplot(top_20_observations, aes(x = model, y = year)) 
+```
+
+4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result
+```{r}
+models_group <- mpg %>%group_by(manufacturer)
+models_group
+
+#a 
+```
