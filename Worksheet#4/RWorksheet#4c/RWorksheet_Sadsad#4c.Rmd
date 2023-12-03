@@ -2,7 +2,11 @@
 title: "Worksheet-4c in R"
 author: "Missy Key Sadsad BSIT-2B"
 date: "2023-11-22"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -23,7 +27,7 @@ View(mpg)
 str(mpg)
 
 #c
-#based on given its class, fl,drv,model,manufacturer
+#based on given its displ, cty,hwy 
 ```
 
 
@@ -64,7 +68,8 @@ qplot(manufacturer, data = mpg,
 #a
 ggplot(mpg, aes(model, manufacturer)) + geom_point()
 
-#b based on the graph, it created a simple scatterplot where each point represent the manufacturer and its model.
+#b 
+#based on the graph, it created a simple scatterplot where each point represent the manufacturer and its model.
 
 ```
 
@@ -72,17 +77,156 @@ ggplot(mpg, aes(model, manufacturer)) + geom_point()
 its results.
 
 ```{r}
-
+#3.
 top_20_observations <- head(mpg, 20)
- 
 
 ggplot(top_20_observations, aes(x = model, y = year)) 
 ```
 
 4. Using the pipe (%>%), group the model and get the number of cars per model. Show codes and its result
 ```{r}
-models_group <- mpg %>%group_by(manufacturer)
+
+
+
+
+library(dplyr)
+
+models_group <- mpg %>%
+group_by(model)%>% 
+summarise(number_of_cars = n())
 models_group
 
-#a 
+ 
+
+ 
+#a
+ggplot(top_20_observations, aes(x = model)) +
+  geom_bar(fill = "blue", alpha = 0.5) +  
+  labs(title = "Top 20 Observations",
+       x = "Car Model",
+       y = "Numbers of Car") +
+  theme_minimal()
+
+#b
+ggplot(top_20_observations, aes(x = model)) +
+  geom_bar(fill = "skyblue", alpha = 0.7) +  # You can customize the color and transparency
+  labs(title = "Top 20 Observations",
+       x = "Car Model",
+       y = "Numbers of Car") +
+  theme_minimal() +
+  coord_flip()
+
+
+
+```
+
+
+5. Plot the relationship between cyl - number of cylinders and displ - engine displacement using
+geom_point with aesthetic color = engine displacement. Title should be “Relationship between
+No. of Cylinders and Engine Displacement”.
+ 
+```{r}
+ggplot(mpg, aes(x = cyl, y = displ, color = displ)) +
+  geom_point() +
+  labs(title = "Relationship between No. of Cylinders and Engine Displacement",
+       x = "Number of cyl",
+       y = "Number of displ") +
+  scale_color_continuous(name = "Engine Displacement") +
+  theme_minimal()
+
+#a
+#this code will generate a scatter plot with a trendline, allowing you to observe any patterns in the relationship between the number of cylinders and engine displacement. Adjustments can be made based on your specific needs and preferences.
+
+
+```
+
+6. Plot the relationship between displ (engine displacement) and hwy(highway miles per gallon). Mapped
+it with a continuous variable you have identified in #1-c. What is its result? Why it produced such
+output?
+
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy, color = cty)) +
+geom_point() +
+  labs(title = "Relationship between Engine Displacement and Highway MPG",
+       x = "Engine Displacement",
+       y = "Highway MPG",
+       color = "City MPG") +
+  theme_minimal()
+```
+
+6. Import the traffic.csv onto your R environment.
+
+
+```{r}
+#a
+traffic_data <- read.csv("traffic.csv")
+View(traffic_data)
+
+num_traffic_obv <-nrow(traffic_data) 
+num_traffic_obv
+
+str(traffic_data)
+#The variable of traffic dataset is DateTime, Junction, Vehicles, and ID.
+ 
+#b
+
+#c
+```
+
+7. From alexa_file.xlxs, import it to your environment
+```{r}
+library(readxl)
+alexa_file <- read_excel("~/GitHub/RWorksheets_Sadsad/Worksheet#4/RWorksheet#4b/alexa_file.xlsx")
+View(alexa_file)
+
+#a
+nrow(alexa_file)
+ncol(alexa_file)
+
+#b
+alexa_data <- alexa_file%>%
+  group_by(variation) %>%
+  summarise(Frequency = n())
+
+View(alexa_data)
+
+ggplot(alexa_data, aes(x = variation, y = Frequency )) +
+  geom_bar(stat = "identity")  +
+   labs(
+    title = "Variations of Alexa Devices",
+    x = "Variation",
+    y = "Frequency"
+  )
+
+#b
+#Each bar represents a variation, and its height indicates how frequently it appears in the data. This visual quickly highlights the more and less common variations.
+
+#c
+summary_reviews <- alexa_file %>%
+  group_by(date) %>%
+  summarize(NumVerifiedReviews = n())
+#e
+ggplot(summary_reviews, aes(x =  date, y = NumVerifiedReviews )) +
+  geom_line(color = "blue") +
+  labs(
+    title = "Verified Reviews Over Time",
+    x = "Date",
+    y = "Number of Verified Reviews"
+  ) +
+  theme_minimal()
+
+#d
+ggplot(alexa_file, aes(x = rating, y = variation)) +
+  geom_point() +
+   labs(
+    title = "Relationship Between Variations and Ratings",
+    x = "Variation",
+    y = "Rating"
+  ) +
+  theme_minimal() 
+
+#the highest variations rating is Walnut Finish and Oak Finish
+
+ 
 ```
