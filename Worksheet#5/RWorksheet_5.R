@@ -1,0 +1,158 @@
+#Basic Statistics
+
+#1. Create a data frame for the table below. Show your solution.
+
+students_score <- data.frame (
+  Students = c(1,2,3,4,5,6,7,8,9,10),
+  preTest =  c(55,54,47,57,51,61,57,54,63,58),
+  postTest = c(61,60,56,63,56,63,59,56,62,61)
+)
+
+#a. Compute the descriptive statistics using different packages (Hmisc and pastecs).Write the codes and its result
+library(Hmisc)
+library(pastecs)
+
+stats_hmisc <- describe(students_score)
+stats_pastics <- stat.desc(students_score)
+
+#2. The Department of Agriculture was studying the effects of several levels of a fertilizer on the growth of a plant. For some analyses, it might be useful to convert the fertilizer levels to an ordered factor.
+
+#a. Write the codes and describe the result.
+order_fertilize <- c(10,10,10, 20,20,50,10,20,10,50,20,50,20,10)
+ordered(order_fertilize)
+# the data_fertilize result shows the level as an ordered factor.
+
+#3. Abdul Hassan, president of Floor Coverings Unlimited, has asked you to study the ex-ercise levels undertaken by 10 subjects were “l”, “n”, “n”, “i”, “l” , “l”, “n”,“n”, “i”, “l” ; n=none, l=light, i=intense.
+
+# a. What is the best way to represent this in R?
+
+exe_levels <- c("l", "n", "n", "i", "l", "l", "n", "n", "i", "l")
+exe_factor <- factor(exe_levels, levels = c("n", "l", "i"), labels = c("none", "light", "intense"))
+exe_factor
+
+# 4. Sample of 30 tax accountants from all the states and territories of Australia and their individual state of origin is specified by a character vector of state mnemonics as:
+
+
+aussie_state <- c("tas", "sa", "qld", "nsw", "nsw", "nt", "wa", "wa", "qld",
+           "vic", "nsw", "vic", "qld", "qld", "sa", "tas", "sa", "nt",
+           "wa", "vic", "qld", "nsw", "nsw", "wa", "sa", "act", "nsw",
+           "vic", "vic", "act")
+
+factor_and_level <-factor(aussie_state, levels = c("act", "nsw", "nt", "qld", "sa", "tas", "vic", "wa") )  
+factor_and_level
+#the factor_with_level variable result is factor with level.
+
+# 5. From #4 - continuation:
+# • Suppose we have the incomes of the same tax accountants in another vector (in suitably large units of money)
+
+aussie_incomes <- c(60, 49, 40, 61, 64, 60, 59, 54,
+             62, 69, 70, 42, 56, 61, 61, 61, 58, 51, 48,
+             65, 49, 49, 41, 48, 52, 46, 59, 46, 58, 43)
+
+# a. Calculate the sample mean income for each state we can now use the special function tapply():
+
+incmeans <- tapply(aussie_incomes, factor_and_level, mean)
+
+incmeans
+
+# b. Copy the results and interpret.
+#The result has the means of each states that has factor with levels 
+# act      nsw       nt      qld       sa      tas      vic       wa 
+#50000 57.33333 55.50000 53.60000 55.00000 60.50000 56.00000 52.25000 
+
+#6. Calculate the standard errors of the state income means (refer again to number 3) 
+
+#stdError <- function(x) sqrt(var(x)/length(x)) Note: After this assignment, the standard errors are calculated by: incster <- tapply(incomes, statef, stdError)
+
+#a. What is the standard error? Write the codes.
+stdErrors <- function(x) sqrt(var(x)/length(x))
+stdErrors
+incster <- tapply(aussie_incomes, factor_and_level, stdErrors)
+incster
+
+#b. Interpret the result.
+#It displays the state income means' computed standard errors. The sample mean income is a reasonably accurate estimate of the genuine population mean income for that state if the standard error of the state income mean is modest. A big standard error indicates less accuracy in predicting the underlying population mean and greater variability in the sample mean.
+
+#7. Use the titanic dataset.
+
+#a. subset the titatic dataset of those who survived and not survived. Show the codes and its result.
+library(datasets)
+data(Titanic)
+ 
+
+Titanic<-as.data.frame(Titanic)
+
+subset_titanic<-subset(Titanic, Survived=="Yes")
+subset_titanic
+
+not_subset_titanic <- subset(Titanic, Survived == "No")
+not_subset_titanic
+
+#8. The data sets are about the breast cancer Wisconsin. The samples arrive periodically as Dr. Wolberg reports his clinical cases. The database therefore reflects this chronologihttps://drive.google.com/file/d/16MFLoehCgx2MJuNSAuB2CsBy6eDIIru/view?usp=drive_link)
+
+library(readr)
+csv.file<-"breastcancer_wisconsin.csv"
+breastcancer_wisconsin<-read.csv("breastcancer_wisconsin.csv")
+breastcancer_wisconsin
+summary(breastcancer_wisconsin)
+
+#a. describe what is the dataset all about.
+#It displays the state income means' computed standard errors. The sample mean income is a reasonably accurate estimate of the genuine population mean income for that state if the standard error of the state income mean is modest. A big standard error indicates less accuracy in predicting the underlying population mean and greater variability in the sample mean.
+
+#d. Compute the descriptive statistics using different packages. Find the values of:
+#d.1 Standard error of the mean for clump thickness.
+clumpThickness_dataset <- breastcancer_wisconsin$clump_thickness
+stdError_clump_thickness <- stdErrors(clumpThickness_dataset)
+stdError_clump_thickness
+#0.1065011
+
+#d.2 Coefficient of variability for Marginal Adhesion.
+marginalAdhesion_data <- breastcancer_wisconsin$marginal_adhesion
+mean <- mean(marginalAdhesion_data)
+sd <- sd(marginalAdhesion_data)
+cv <- sd / mean
+cv
+cv<-cv*100 #getting the percentage
+cv
+
+#d.3 Number of null values of Bare Nuclei.
+bareNuclei_data <- breastcancer_wisconsin$bare_nucleoli
+numNull__values <- sum(is.na(bareNuclei_data))
+numNull__values
+
+#d.4 Mean and standard deviation for Bland Chromatin
+blandChromatin_data <- breastcancer_wisconsin$bland_chromatin
+mean_blandChromatin <- mean(blandChromatin_data)
+sd_blandChromatin <- sd(blandChromatin_data)
+mean_blandChromatin
+sd_blandChromatin
+
+#d.5 Confidence interval of the mean for Uniformity of Cell Shape
+#Using t.test function
+shapeUniformity_data <- breastcancer_wisconsin$shape_uniformity
+confidence_Interval <- t.test(shapeUniformity_data, na.rm = TRUE)$conf.int
+confidence_Interval
+
+#d. How many attributes?
+length(breastcancer_wisconsin)
+names(breastcancer_wisconsin)
+
+#e. Find the percentage of respondents who are malignant. Interpret the results
+percentage_malignant <- sum(breastcancer_wisconsin$class == 4) / nrow(breastcancer_wisconsin) * 100
+percentage_malignant
+#Accordingly, the result 34.47783 indicates that roughly 34.48% of the participants in the dataset on breast cancer are categorized as malignant. The relative frequency of malignant cases in the dataset is shown by this percentage.
+
+#9. Export the data abalone to the Microsoft excel file. Copy the codes.
+install.packages("AppliedPredictiveModeling")
+library("AppliedPredictiveModeling")
+data("abalone")
+View(abalone)
+head(abalone)
+summary(abalone)
+
+abalone_excel<-"C:/Users/missy/OneDrive/Documents/Github/RWorksheets_Sadsad/Worksheet#5/abaloneData.xlsx"
+install.packages("writexl")
+library(writexl)
+write_xlsx(abalone, abalone_excel)
+
+  
